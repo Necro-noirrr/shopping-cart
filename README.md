@@ -1,32 +1,42 @@
-# React + TypeScript + Vite
+# Shopping Cart App
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Responsive shopping cart. Browse products, search/filter, manage cart, 3-step checkout.
 
-Currently, two official plugins are available:
+## Technologies
+React 19, TypeScript, Vite, Bootstrap, pnpm, Zustand, TanStack Query, Zod
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Setup
+    pnpm install
+    pnpm dev
 
-## React Compiler
+## Commands
+- `pnpm dev` start dev server
+- `pnpm build` production build
+- `pnpm preview` preview build
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## API
+https://dummyjson.com/products
 
-## Expanding the Oxlint configuration
+## Features
+- Product grid: image, title, category, price, rating
+- Loading, error, empty states
+- TanStack Query fetch + Zod response validation
+- Search by title, filter by category and max price, clear filters (custom hook)
+- Cart: add, remove, +/- (min 1, max 5), clear
+- Zustand store + persist to localStorage
+- Totals: 5% tax, 10% discount over $100, $10 minimum checkout
+- Checkout: Cart Review → Shipping (Zod validation) → Payment Summary
+- Place Order shows success, clears cart
+- Responsive layout
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Known limitations
+- No payment gateway
+- No product details page
+- Price filter is max price only
+- No automated tests
+- Order not saved anywhere
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Improvements with more time
+- Unit tests for totals
+- Sorting + skeleton loading
+- Product details view
