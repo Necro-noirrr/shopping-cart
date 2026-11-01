@@ -1,10 +1,13 @@
+import { useState } from 'react' // NEW
 import { useProducts } from './hooks/useProducts'
 import { ProductList } from './components/ProductList'
 import { Cart } from './components/Cart'
+import { Checkout } from './components/Checkout' // NEW
 import { useCartStore } from './store/cartStore'
 
 export default function App() {
   const { data, isLoading, error } = useProducts()
+  const [view, setView] = useState<'shop' | 'checkout'>('shop') // NEW
   const itemCount = useCartStore((s) =>
     s.items.reduce((sum, i) => sum + i.quantity, 0)
   )
@@ -16,27 +19,31 @@ export default function App() {
         <span className="badge text-bg-primary">Cart: {itemCount}</span>
       </div>
 
-      <div className="row g-4">
-        <div className="col-12 col-lg-8">
-          {isLoading && <div className="spinner-border" role="status" />}
-          {error && (
-            <div className="alert alert-danger">
-              Could not load products: {error.message}
-            </div>
-          )}
-          {data &&
-            (data.length === 0 ? (
-              <p>No products available.</p>
-            ) : (
-              <ProductList products={data} />
-            ))}
-        </div>
+      {view === 'checkout' ? ( // NEW: switch view
+        <Checkout onExit={() => setView('shop')} />
+      ) : (
+        <div className="row g-4">
+          <div className="col-12 col-lg-8">
+            {isLoading && <div className="spinner-border" role="status" />}
+            {error && (
+              <div className="alert alert-danger">
+                Could not load products: {error.message}
+              </div>
+            )}
+            {data &&
+              (data.length === 0 ? (
+                <p>No products available.</p>
+              ) : (
+                <ProductList products={data} />
+              ))}
+          </div>
 
-        <div className="col-12 col-lg-4">
-          <h2 className="h5">Your Cart</h2>
-          <Cart />
+          <div className="col-12 col-lg-4">
+            <h2 className="h5">Your Cart</h2>
+            <Cart onCheckout={() => setView('checkout')} /> {/* CHANGED: prop passed */}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

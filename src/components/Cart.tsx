@@ -1,7 +1,7 @@
 import { useCartStore, MIN_QTY, MAX_QTY } from '../store/cartStore'
 import { calculateTotals, formatPrice, MIN_CHECKOUT } from '../utils/cart'
 
-export function Cart() {
+export function Cart({ onCheckout }: { onCheckout: () => void }) { // CHANGED: prop added
   const items = useCartStore((s) => s.items)
   const removeItem = useCartStore((s) => s.removeItem)
   const increase = useCartStore((s) => s.increase)
@@ -66,7 +66,8 @@ export function Cart() {
         </div>
       )}
 
-      <button className="btn btn-success w-100 mt-2" disabled={belowMin}>
+      {/* CHANGED: onClick={onCheckout} added */}
+      <button className="btn btn-success w-100 mt-2" disabled={belowMin} onClick={onCheckout}>
         Checkout
       </button>
       <button className="btn btn-outline-danger w-100 mt-2" onClick={clearCart}>
