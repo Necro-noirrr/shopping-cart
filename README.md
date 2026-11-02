@@ -2,6 +2,9 @@
 
 Responsive shopping cart. Browse products, search/filter, manage cart, 3-step checkout.
 
+## Live demo
+ https://necro-shopping-cart.netlify.app
+
 ## Technologies
 React 19, TypeScript, Vite, Bootstrap, pnpm, Zustand, TanStack Query, Zod
 
